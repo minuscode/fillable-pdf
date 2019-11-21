@@ -10,6 +10,10 @@ class FillablePDF
   PDF_DOCUMENT = Rjb.import 'com.itextpdf.kernel.pdf.PdfDocument'
   PDF_ACRO_FORM = Rjb.import 'com.itextpdf.forms.PdfAcroForm'
   PDF_FORM_FIELD = Rjb.import 'com.itextpdf.forms.fields.PdfFormField'
+  IMAGE_DATA = Rjb.import 'com.itextpdf.io.image.ImageData'
+  IMAGE_DATA_FACTORY = Rjb.import 'com.itextpdf.io.image.ImageDataFactory'
+  IMAGE = Rjb.import 'com.itextpdf.layout.element.Image'
+  DOCUMENT = Rjb.import 'com.itextpdf.layout.Document'
 
   ##
   # Opens a given fillable-pdf PDF file and prepares it for modification.
@@ -124,6 +128,23 @@ class FillablePDF
   #
   def remove_field(key)
     @pdf_form.removeField(key.to_s)
+  end
+
+  ##
+  # Adds an imageRemoves a field from the document given its unique field name.
+  #
+  #   @param [String] file_path the name of the image file or file path
+  #   @param [String] x the x position
+  #   @param [String] y the y position
+  #   @param [String] w the width that the image will occupy
+  #   @param [String] h the height that the image will occupy
+  #
+  def add_image(file_path, x, y, w, h)
+    image = IMAGE.new(IMAGE_DATA_FACTORY.create file_path)
+    image.setFixedPosition(x, y);
+    image.scaleToFit(w, h)
+    document = DOCUMENT.new @pdf_doc
+    document.add(image)
   end
 
   ##
