@@ -29,6 +29,7 @@ class FillablePDF
     @pdf_doc = PDF_DOCUMENT.new @pdf_reader, @pdf_writer
     @pdf_form = PDF_ACRO_FORM.getAcroForm(@pdf_doc, true)
     @form_fields = @pdf_form.getFormFields
+    @document = DOCUMENT.new @pdf_doc
   end
 
   ##
@@ -139,8 +140,7 @@ class FillablePDF
     image = IMAGE.new(IMAGE_DATA_FACTORY.create file_path)
     image.setFixedPosition(x, y);
     image.scaleToFit(w, h)
-    document = DOCUMENT.new @pdf_doc
-    document.add(image)
+    @document.add(image)
   end
 
   ##
