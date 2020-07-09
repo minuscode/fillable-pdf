@@ -140,9 +140,9 @@ class FillablePDF
   #   @param [String] w the width that the image will occupy
   #   @param [String] h the height that the image will occupy
   #
-  def add_image(file_path, x, y, w, h)
+  def add_image(file_path, x, y, w, h, page = 1)
     image = IMAGE.new(IMAGE_DATA_FACTORY.create file_path)
-    image.setFixedPosition(x, y);
+    image.setFixedPosition(page, x, y);
     image.scaleToFit(w, h)
     @document.add(image)
   end
