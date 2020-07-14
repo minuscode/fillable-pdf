@@ -26,6 +26,7 @@ class FillablePDF
     begin
       @byte_stream = BYTE_STREAM.new
       @pdf_reader = PDF_READER.new @file_path
+      @pdf_reader.setUnethicalReading(true) # allows opening encrypted files
       @pdf_writer = PDF_WRITER.new @byte_stream
       @pdf_doc = PDF_DOCUMENT.new @pdf_reader, @pdf_writer
       @pdf_form = PDF_ACRO_FORM.getAcroForm(@pdf_doc, true)
@@ -139,6 +140,7 @@ class FillablePDF
   #   @param [String] y the y position
   #   @param [String] w the width that the image will occupy
   #   @param [String] h the height that the image will occupy
+  #   @param [Integer] page the page the image will be added to
   #
   def add_image(file_path, x, y, w, h, page = 1)
     image = IMAGE.new(IMAGE_DATA_FACTORY.create file_path)
